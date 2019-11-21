@@ -1,6 +1,8 @@
 package com.example.basemapperdemo;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.basemapperdemo.mapper.UserMapper;
 import com.example.basemapperdemo.pojo.User;
 import org.junit.Assert;
@@ -79,7 +81,9 @@ class BasemapperdemoApplicationTests {
     }
 
     /**
-     *
+     * <p>
+     *     根据 Wrapper 条件，查询总记录数
+     * </p>
      */
     @Test
     void selectCount(){
@@ -87,6 +91,70 @@ class BasemapperdemoApplicationTests {
         qw.ge("user_name","小明");
         int count = userMapper.selectCount(qw);
         Assert.assertEquals(1,count);
+    }
+
+    /**
+     * <p>
+     *     根据 Wrapper 条件，查询全部记录
+     * </p>
+     */
+    @Test
+    void selectMap(){
+        QueryWrapper<User> qw = new QueryWrapper<>();
+        qw.ge("user_name","小明");
+        List<Map<String,Object>>  maps = userMapper.selectMaps(qw);
+        maps.forEach(System.out::println);
+    }
+
+    /**
+     * <p>
+     *    注意： 只返回第一个字段的值
+     * </p>
+     */
+    @Test
+    void selectObject(){
+        QueryWrapper<User> qw = new QueryWrapper<>();
+        qw.ge("user_name","小明");
+        Object obj = userMapper.selectObjs(qw);
+        System.out.println(obj);
+    }
+
+    /**
+     * <p>
+     *     根据 Wrapper 条件，查询全部记录（并翻页）
+     *     翻页查询一
+     * </p>
+     */
+    @Test
+    void selectPage(){
+        QueryWrapper<User> qw = new QueryWrapper<>();
+        qw.ge("user_name","小明");
+        Page<User> page = new Page<>(1,2);
+        IPage<User> mapIPage = userMapper.selectPage(page,qw);
+        System.out.println("总记录数：" + mapIPage.getTotal());
+        System.out.println("总页数：" + mapIPage.getPages());
+
+        List<User> userList = mapIPage.getRecords();
+        userList.forEach(System.out::println);
+    }
+
+    /**
+     * <p>
+     *     根据 Wrapper 条件，查询全部记录（并翻页）
+     *     翻页查询二
+     * </p>
+     */
+    @Test
+    void selectMapsPage(){
+        QueryWrapper<User> qw = new QueryWrapper<>();
+        qw.ge("user_name","小明");
+        Page<User> page = new Page<>(1,2);
+        IPage<Map<String,Object>> mapIPage = userMapper.selectMapsPage(page,qw);
+        System.out.println("总记录数：" + mapIPage.getTotal());
+        System.out.println("总页数：" + mapIPage.getPages());
+
+        List<Map<String,Object>> userList = mapIPage.getRecords();
+        userList.forEach(System.out::println);
     }
 
     /**

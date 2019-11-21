@@ -1,2 +1,0 @@
-# basemapperdemo
-springboot-basemapper

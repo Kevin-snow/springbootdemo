@@ -13,10 +13,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.annotation.Resource;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -168,6 +165,78 @@ class BasemapperdemoApplicationTests {
         userList.forEach(System.out::println);
     }
 
+    /**
+     * <p>
+     *     插入一条记录
+     * </p>
+     */
+    @Test
+    void insert(){
+        User user = new User();
+        user.setId(UUID.randomUUID().toString());
+        user.setLoginId("zhangsan");
+        user.setPassword("123");
+        user.setUserName("张三");
+        int count = userMapper.insert(user);
+        Assert.assertEquals(1,count);
+    }
+
+    /**
+     * <p>
+     *     更新一条记录
+     * </p>
+     */
+    @Test
+    void updateById(){
+        User user = new User();
+        user.setId("30b512e4-7196-4736-8f4e-ea472f4f475f");
+        user.setLoginId("lisi");
+        user.setPassword("123123");
+        user.setUserName("王五");
+        int count = userMapper.updateById(user);
+        Assert.assertEquals(1,count);
+    }
+
+    /**
+     * <p>
+     *     更新一条记录
+     * </p>
+     */
+    @Test
+    void update(){
+        User user = new User();
+        user.setLoginId("bajie");
+        user.setPassword("2627323");
+        user.setUserName("八戒");
+        QueryWrapper<User> qw = new QueryWrapper<>();
+        qw.eq("id","db7e7bed-99da-4267-9428-a4707b110e8c");
+        int count = userMapper.update(user,qw);
+        Assert.assertEquals(1,count);
+    }
+
+    /**
+     * <p>
+     *     删除记录
+     * </p>
+     */
+    @Test
+    void delete(){
+        QueryWrapper<User> wq = new QueryWrapper<>();
+        wq.eq("id","db7e7bed-99da-4267-9428-a4707b110e8c");
+        int count = userMapper.delete(wq);
+        Assert.assertEquals(1,count);
+    }
+
+    /**
+     * <p>
+     *     删除记录
+     * </p>
+     */
+    @Test
+    void deleteById(){
+        int count = userMapper.deleteById("30b512e4-7196-4736-8f4e-ea472f4f475f");
+        Assert.assertEquals(1,count);
+    }
 
 
 }

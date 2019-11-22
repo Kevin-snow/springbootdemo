@@ -14,29 +14,18 @@ import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-
-import java.util.List;
 
 /**
  * 重写Realm
  * @author kevin
  * @date 2019/11/21
  */
-@Component
 public class UserRealm extends AuthorizingRealm {
 
     private UserService userService;
     @Autowired
     public void setUserService(UserService userService) {
         this.userService = userService;
-    }
-
-    private RoleService roleService;
-
-    @Autowired
-    public void setRoleService(RoleService roleService) {
-        this.roleService = roleService;
     }
 
     /**
@@ -47,11 +36,12 @@ public class UserRealm extends AuthorizingRealm {
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
         System.out.println("用户权限配置！");
-        SimpleAuthorizationInfo simpleAuthorizationInfo = new SimpleAuthorizationInfo();
         User user = (User) principalCollection.getPrimaryPrincipal();
+
+        SimpleAuthorizationInfo simpleAuthorizationInfo = new SimpleAuthorizationInfo();
         for (Role role : user.getRoleList()){
             System.out.println("配置角色");
-            simpleAuthorizationInfo.addRole(role.getRoleName());
+//            simpleAuthorizationInfo.addRole(role.getRoleName());
             for (Permission permission : role.getPermissionList()){
                 System.out.println("配置权限");
                 simpleAuthorizationInfo.addStringPermission(permission.getPermissionKey());

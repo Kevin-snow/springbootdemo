@@ -3,9 +3,7 @@ package com.example.springbootshirodemo.service.impl;
 import com.example.springbootshirodemo.mapper.PermissionMapper;
 import com.example.springbootshirodemo.mapper.RoleMapper;
 import com.example.springbootshirodemo.pojo.Role;
-import com.example.springbootshirodemo.service.PermissionService;
 import com.example.springbootshirodemo.service.RoleService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -13,6 +11,8 @@ import java.util.List;
 
 /**
  * Role Service implements class.
+ * @author kevin
+ * @date 2019/11/21
  */
 @Service
 public class RoleServiceImpl implements RoleService {

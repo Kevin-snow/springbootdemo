@@ -6,29 +6,38 @@ import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
-
-import javax.servlet.http.HttpServletRequest;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * 登录Controller.
+ * @author kevin
+ * @date 2019/11/22
  */
 @Controller
 public class LoginController {
 
     /**
-     *
-     * @param request
-     * @return
+     * 登录页面
+     * @return string
      */
     @GetMapping("/login")
-    public String index(HttpServletRequest request){
+    public String index(){
         if (SecurityUtils.getSubject().isAuthenticated()){
             return "redirect:/index";
         }
         return "login";
     }
 
+    /**
+     * <p>
+     *     登录
+     * </p>
+     * @param param 参数
+     * @return 登录成功页面
+     */
     @PostMapping("/login")
     @ResponseBody
     public String login(@RequestBody String param){

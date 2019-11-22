@@ -1,6 +1,5 @@
 package com.example.springbootshirodemo.pojo;
 
-import jdk.nashorn.internal.runtime.linker.LinkerCallSite;
 import lombok.Data;
 
 import java.io.Serializable;

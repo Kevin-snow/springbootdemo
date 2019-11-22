@@ -25,7 +25,7 @@ public class ShiroConfig {
      *  <p>
      *      配置过滤器
      *  </p>
-     * @return
+     * @return shiroFilterFactoryBean
      */
     @Bean
     public ShiroFilterFactoryBean shiroFilter(SecurityManager securityManager){
@@ -50,9 +50,9 @@ public class ShiroConfig {
      * <p>
      *     加密方式
      * </p>
-     * @return
+     * @return hashedCredentialsMatcher
      */
-    public HashedCredentialsMatcher hashedCredentialsMatcher(){
+    private HashedCredentialsMatcher hashedCredentialsMatcher(){
         HashedCredentialsMatcher hashedCredentialsMatcher = new HashedCredentialsMatcher();
         hashedCredentialsMatcher.setHashAlgorithmName("md5");
         hashedCredentialsMatcher.setHashIterations(1);
@@ -63,7 +63,7 @@ public class ShiroConfig {
      * <p>
      *     自定义Realm
      * </p>
-     * @return
+     * @return userRealm
      */
     @Bean
     public UserRealm userRealm(){
@@ -74,7 +74,7 @@ public class ShiroConfig {
 
     /**
      * 安全管理器
-     * @return
+     * @return securityManager
      */
     @Bean
     public DefaultWebSecurityManager securityManager(){
@@ -87,8 +87,8 @@ public class ShiroConfig {
      * <p>
      *     开启@RequirePermission注解的配置，要结合DefaultAdvisorAutoProxyCreator一起使用，或者导入aop的依赖
      * </p>
-     * @param securityManager
-     * @return
+     * @param securityManager 安全器
+     * @return authorizationAttributeSourceAdvisor
      */
     @Bean
     public AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor(SecurityManager securityManager){

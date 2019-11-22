@@ -3,7 +3,6 @@ package com.example.springbootshirodemo.shiro;
 import com.example.springbootshirodemo.pojo.Permission;
 import com.example.springbootshirodemo.pojo.Role;
 import com.example.springbootshirodemo.pojo.User;
-import com.example.springbootshirodemo.service.RoleService;
 import com.example.springbootshirodemo.service.UserService;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
@@ -30,8 +29,8 @@ public class UserRealm extends AuthorizingRealm {
 
     /**
      * 授权
-     * @param principalCollection
-     * @return
+     * @param principalCollection 参数
+     * @return simpleAuthorizationInfo
      */
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
@@ -41,7 +40,6 @@ public class UserRealm extends AuthorizingRealm {
         SimpleAuthorizationInfo simpleAuthorizationInfo = new SimpleAuthorizationInfo();
         for (Role role : user.getRoleList()){
             System.out.println("配置角色");
-//            simpleAuthorizationInfo.addRole(role.getRoleName());
             for (Permission permission : role.getPermissionList()){
                 System.out.println("配置权限");
                 simpleAuthorizationInfo.addStringPermission(permission.getPermissionKey());
@@ -52,9 +50,9 @@ public class UserRealm extends AuthorizingRealm {
 
     /**
      * 认证
-     * @param token
-     * @return
-     * @throws AuthenticationException
+     * @param token token
+     * @return 认证信息
+     * @throws AuthenticationException 认证异常
      */
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {

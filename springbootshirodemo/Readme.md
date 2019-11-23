@@ -14,6 +14,7 @@ springbootdemo:
     
 Shiro简单介绍：
     shiro是apache的一个开源框架，是一个权限管理的框架，实现用户认证、用户授权。 
+    Shiro提供了：认证、授权、加密、会话管理、与Web集成、缓存等模块。
     spring中有spring security (原名Acegi)，是一个权限框架，它和spring依赖过于紧密，没有shiro使用简单。
     shiro不依赖于spring，shiro不仅可以实现web应用的权限管理，还可以实现c/s系统，分布式系统权限管理，shiro属于轻量框架，越来越多企业项目开始使用shiro。
     使用shiro实现系统的权限管理，有效提高开发效率，从而降低开发成本。
